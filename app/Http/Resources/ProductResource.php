@@ -23,7 +23,10 @@ class ProductResource extends JsonResource
             'harga'     => (int) $this->harga,
             'stok'      => (int) $this->stok,
             'deskripsi' => $this->deskripsi,
-            'gambar'    => ($this->image == null) ? null : url('uploads/'.$this->image),
+            'gambar'    => $this->whenLoaded(
+                'latestImage',
+                asset('uploads/'.$this->latestImage->first()->gambar)
+                ),
             'images'    => ImagesProductResource::collection($this->whenLoaded('imageRelation')),
         ];
     }

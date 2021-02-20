@@ -2,30 +2,43 @@
 
 namespace App\Http\Controllers\Api;
 
-use DB;
 use Auth;
 use Response;
 use App\Models\User;
-use App\Http\Resources\UserResource;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 
-class UserController extends Controller
+class UsersApiController extends Controller
 {
     public function users()
     {
-        $users = User::orderBy('nama')->paginate(10);
+        $users = User::paginate(10);
 
         // dd($users);
 
         return UserResource::collection($users);
     }
 
-    public function user($id)
+    public function user($iduser)
     {
-        $user = User::findOrFail($id);
+        $user = User::find($iduser);
 
-        
+        if( $user == null){
+            return Response::json([
+                'status' => [
+                    'code' => 404,
+                    'deskripsi' => 'Data User tidak ditemukan!'
+                ]
+            ]);
+        }
+
+        return (new UserResource($user))->additional([
+            'status' => [
+                'code' => 200,
+                'deskripsi' => 'OK'
+            ]
+        ])->response()->setStatusCode(200);
     }
 
     public function login(Request $request)
@@ -35,18 +48,17 @@ class UserController extends Controller
             return Response::json([
                 'status' => [
                     "code"          => 401,
-                    "description"   => "Perintah tidak dikenal!"
+                    "deskripsi"   => "Perintah tidak dikenal!"
                 ]
                 ], 401 );
         }
 
-        $loggedUser = User::find(Auth::user()->id);
+        $loginUser = Auth::user();
 
-        return (new UserResource($loggedUser))
-        ->additional([
+        return (new UserResource($loginUser))->additional([
             'status' => [
                 "code"          => 202,
-                "description"   => "OK"
+                "deskripsi"   => "OK"
             ]
         ])->response()->setStatusCode(202);
     }
@@ -65,14 +77,13 @@ class UserController extends Controller
             'username'  => $request->username,
             'email'     => $request->email,
             'password'  => bcrypt($request->password),
-            'api_token' => bcrypt($request->email),
+            'api_token' => bcrypt($request->nama),
         ]);
 
-        return (new UserResource($userBaru))
-        ->additional([
+        return (new UserResource($userBaru))->additional([
             'status' => [
                 "code"          => 201,
-                "description"   => "OK"
+                "deskripsi"   => "OK"
             ]
         ])->response()->setStatusCode(201);
     }
@@ -81,12 +92,12 @@ class UserController extends Controller
     {
         $request->validate([
             'nama'      => 'max:20',
-            'username'  => 'unique:users,id,'.$iduser,
+            'username'  => 'max:100|unique:users,id,'.$iduser,
             'email'     => 'email|unique:users,id,'.$iduser,
             'password'  => 'min:6'
         ]);
 
-        $user = User::where('id',$iduser)->firstOrFail();
+        $user = User::find($iduser);
 
         // return $request->all();
 
@@ -94,24 +105,20 @@ class UserController extends Controller
             return Response::json([
                 'status' => [
                     "code"          => 404,
-                    "description"   => "Data tidak ditemukan!"
+                    "deskripsi"   => "Data tidak ditemukan!"
                 ]
             ], 404 );
         }else {
-            if ($request->password != null) {
-                $request->merge([
-                    'password' => bcrypt($request->password)
-                ]);
-            }
+            $request->merge([
+                'password' => bcrypt($request->password)
+            ]);
+            $user->update($request->all());
         }
 
-        $user->update($request->all());
-
-        return (new UserResource($user))
-        ->additional([
+        return (new UserResource($user))->additional([
             'status' => [
                 "code"          => 200,
-                "description"   => "OK"
+                "deskripsi"   => "OK"
             ]
         ])->response()->setStatusCode(200);
     }
@@ -134,7 +141,7 @@ class UserController extends Controller
         return Response::json([
             'status' => [
                 'code' => 200,
-                'description' => 'Logout Success',
+                'deskripsi' => 'Logout Success',
             ]
         ],200);
     }

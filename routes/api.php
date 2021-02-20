@@ -18,19 +18,19 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('users','Api\UserController@users');
-Route::get('user/{id}','Api\UserController@user');
+Route::get('users','Api\UsersApiController@users');
+Route::get('user/{id}','Api\UsersApiController@user');
 
-Route::post('auth/login','Api\UserController@login');
-Route::post('auth/register','Api\UserController@register');
+Route::post('auth/login','Api\UsersApiController@login');
+Route::post('auth/register','Api\UsersApiController@register');
 
-Route::post('auth/update/{iduser}','Api\UserController@updateUser');
-Route::get('auth/logout/{iduser}','Api\UserController@logout');
+Route::post('auth/update/{iduser}','Api\UsersApiController@updateUser');
+Route::get('auth/logout/{iduser}','Api\UsersApiController@logout');
 
 Route::get('produk','Api\ProdukController@produk');
-Route::get('produk/{id}','Api\ProdukController@produkid');
+Route::get('produk/{id}','Api\ProdukController@product');
 
-Route::post('transaksi','Api\TransactionController@toko');
-Route::get('transaksi-user/{userId}/{status?}','Api\TransactionController@userTransaction');
-Route::get('transaksi/{code}','Api\TransactionController@byCode');
-Route::post('upload/{code}','Api\TransactionController@upload');
+Route::post('transaksi','Api\TransactionApiController@toko');
+Route::get('transaksi-user/{iduser}/{status?}','Api\TransactionApiController@byUser');
+Route::get('transaksi/{code}','Api\TransactionApiController@detail');
+Route::post('upload/{code}','Api\TransactionApiController@upload');
