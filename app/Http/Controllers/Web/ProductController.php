@@ -3,38 +3,54 @@
 namespace App\Http\Controllers\Web;
 
 use DB;
-use Response;
+// use Response;
 use Storage;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ImageProduct;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
+    /**
+    * Display a listing of the resource.
+    *
+    * @return \Illuminate\Http\Response
+    */
+
     public function index()
     {
-        $produks = Product::orderBy('produk','asc')->paginate(10);
-        return view('admin.product.index', compact('produks'));
+        $produks = Product::paginate(10);
+        return view('admin.master.product.index', compact('produks'));
     }
 
-    public function show($id)
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+    public function create()
     {
-        $produks = Product::with('imageRelation')->where('id', $id)->first();
-        // dd($produks);
-        return view('admin.product.detailproduk',compact('produks'));
+        return view('admin.master.product.create');
     }
 
+    /**
+    * Store a newly created resource in storage.
+    *
+    * @param  \Illuminate\Http\Request  $request
+    * @return \Illuminate\Http\Response
+    */
     public function toko(Request $request)
     {
-        $request->validate([
-            'produk'    => 'required|max:60',
-            'harga'     => 'required|min:0',
-            'stok'      => 'required|min:0',
-            'images.*'  => 'required|mimes:jpg,jpeg,png',
+        // $request->validate([
+        //     'produk'    => 'required|max:60',
+        //     'harga'     => 'required|min:0',
+        //     'stok'      => 'required|min:0',
+        //     'images.*'  => 'required|mimes:jpg,jpeg,png',
+        // ]);
 
-        ]);
         // dd ($request->all());
         DB::beginTransaction();
 
@@ -48,7 +64,7 @@ class ProductController extends Controller
 
             if ($request->hasFile('images')) {
                 
-                $array = [];
+                $arrayImages = [];
 
                 foreach ($request->images as $key => $value) {
                     $path = $value->store('produk');
@@ -58,28 +74,62 @@ class ProductController extends Controller
                         'gambar'    => $path,
                     ];
 
-                    array_push($array, $image);
+                    arrayImages_push($arrayImages, $image);
 
                 }
-                ImageProduct::insert($array);
+                ImageProduct::insert($arrayImages);
             }
             
 
             DB::commit();
         } catch (\Exception $e) {
-
             DB::rollBack();
-
             dd($e);
         }
 
-        return redirect()->back();
+        return redirect()->route('product.index');
     }
 
-    public function update(Request $request)
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
     {
-        $produk = Product::where('id',$request->id)->first();
-        $gambarProdukLama = ImageProduct::where('produk_id',$request->id)->get();
+        // $produks = Product::with('imageRelation')->where('id', $id)->first();
+        $produks = Product::with('imageRelation')->first($id);
+        // dd($produks);
+        return view('admin.master.product.detailproduk',compact('produks'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $product = Product::find($id);
+
+        return view('admin.master.product.edit', compact('product'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        // $produk = Product::where('id',$request->id)->first();
+        $produk = Product::find($id);
+        // $gambarProdukLama = ImageProduct::where('produk_id',$request->id)->get();
+        $gambarProdukLama = ImageProduct::where('produk_id',$id)->get();
 
         DB::beginTransaction();
 
@@ -100,7 +150,7 @@ class ProductController extends Controller
                     ImageProduct::where('produk_id',$request->id)->delete();
                 }
 
-                $array = [];
+                $arrayImages = [];
 
                 foreach ($request->images as $key => $value) {
                     $path = $value->store('produk');
@@ -110,19 +160,49 @@ class ProductController extends Controller
                         'gambar'    => $path,
                     ];
 
-                    array_push($array, $image);
+                    array_push($arrayImages, $image);
 
                 }
-                ImageProduct::insert($array);
+                ImageProduct::insert($arrayImages);
             }
 
             DB::commit();
         } catch (\Exception $e) {
-            dd($e);
             DB::rollback();
+            dd($e);
         }
 
-        return redirect()->back();
+        return redirect()->route("product.index");
 
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $product = Product::find($id);
+
+        if( !$product ){
+            abort(404);
+        }
+
+        $oldImages = ImagesProduct::where('produk_id',$id)->get();
+
+        if( count( $oldImages ) >= 0 ){
+
+            foreach ($oldImages as $old) {
+                Storage::delete($old->image);
+            }
+
+            ImagesProduct::where('produk_id',$id)->delete();
+        }
+
+        $product->delete();
+
+        return redirect()->route("product.index");
     }
 }
