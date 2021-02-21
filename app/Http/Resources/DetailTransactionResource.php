@@ -17,7 +17,6 @@ class DetailTransactionResource extends JsonResource
         // return parent::toArray($request);
 
         return [
-            'id' => $this->id,
             'produk_id' => $this->produk_id,
             'produk' => ucfirst($this->produk),
             'jumlah_barang' => $this->jumlah_barang,

@@ -18,11 +18,11 @@ class TransactionResource extends JsonResource
         // return parent::toArray($request);
         return [
             'kode_transaksi'    => $this->kode_transaksi,
-            'user'              => ucfirst($this->userRelation->nama),
-            'tujuan'            => $this->tujuan ?: null,
-            'tgl_transaksi'     => $this->tgl_transaksi->format('d-M-Y'),
+            'user'              => ($this->userRelation == null) ? '-' : $this->userRelation->nama,
+            'tujuan'            => $this->tujuan,
             'total_akhir'       =>"Rp. ".number_format($this->total_akhir,0,'.','.'),
             'status_transaksi'  =>$this->status_transaksi,
+            'tgl_transaksi'     => $this->tgl_transaksi->format('d-M-Y'),
             'detail_transaksi'  => DetailTransactionResource::collection($this->whenLoaded('detailRelation')),
         ];
     }

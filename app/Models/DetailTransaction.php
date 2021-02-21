@@ -12,6 +12,6 @@ class DetailTransaction extends Model
 
     public function productRelation()
     {
-        return $this->hasOne('App\Models\Product','id','produk_id');
+        return $this->hasOne(App\Models\Product::class,'id','produk_id');
     }
 }

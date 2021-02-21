@@ -18,7 +18,7 @@ class ImagesProductResource extends JsonResource
 
         return [
             'id'        => $this->id,
-            'gambar'    => asset('uploads/'.$this->gambar),
+            'gambar'    => $this->gambar,
         ];
     }
 }

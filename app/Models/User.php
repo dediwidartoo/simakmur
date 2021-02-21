@@ -35,8 +35,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function scopeIsNotAdmin($query)
-    {
-        return $query->where('is_admin',false);
-    }
+    // public function scopeIsNotAdmin($query)
+    // {
+    //     return $query->where('is_admin',false);
+    // }
 }

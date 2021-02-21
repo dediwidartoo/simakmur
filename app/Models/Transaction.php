@@ -26,13 +26,13 @@ class Transaction extends Model
         return $string.$number;
     }
 
-    public function userRelation()
-    {
-        return $this->hasOne('App\Models\User','id','user_id');
-    }
-
     public function detailRelation()
     {
-        return $this->hasMany('App\Models\DetailTransaction','transaksi_id','id');
+        return $this->hasMany(App\Models\DetailTransaction::class,'transaksi_id','id');
+    }
+
+    public function userRelation()
+    {
+        return $this->hasOne(App\Models\User::class,'id','user_id');
     }
 }
