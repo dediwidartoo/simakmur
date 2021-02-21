@@ -15,18 +15,19 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('auth.login');
-});
+})->middleware('guest');
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
 // Route::get('/users', 'web\UserController@users');
 
-Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
-    Route::get('/users', 'Web\UserController@users')->name('users');
-    Route::get('/products', 'Web\ProductController@index')->name('product.index');
-    Route::post('/products', 'Web\ProductController@toko')->name('product.toko');
-    Route::get('/produk/{id}', 'Web\ProductController@show')->name('product.show');
-    Route::post('/products/update', 'Web\ProductController@update')->name('product.update');
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/users', 'Web\UserController@users')->name('data.users');
+    Route::resource('product', 'Web\ProductsController');
+    // Route::get('/products', 'Web\ProductController@index')->name('product.index');
+    // Route::post('/products', 'Web\ProductController@toko')->name('product.toko');
+    // Route::get('/produk/{id}', 'Web\ProductController@show')->name('product.show');
+    // Route::post('/products/update', 'Web\ProductController@update')->name('product.update');
 });

@@ -145,7 +145,7 @@ class ProductController extends Controller
             if ($request->hasFile('images')) {
                 if (count($gambarProdukLama) >= 0) {
                     foreach ($gambarProdukLama as $lama) {
-                        Storage::delete($lama->image);
+                        Storage::delete($lama->gambar);
                     }
                     ImageProduct::where('produk_id',$request->id)->delete();
                 }
@@ -195,7 +195,7 @@ class ProductController extends Controller
         if( count( $oldImages ) >= 0 ){
 
             foreach ($oldImages as $old) {
-                Storage::delete($old->image);
+                Storage::delete($old->gambar);
             }
 
             ImagesProduct::where('produk_id',$id)->delete();

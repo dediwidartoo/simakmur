@@ -11,9 +11,10 @@ class UserController extends Controller
 {
     public function users()
     {
-        $users = User::IsNotAdmin()->paginate(10);
+        // $users = User::IsNotAdmin()->paginate(10);
+        $users = User::orderBy('nama','asc')->paginate(10);
 
         // dd($users); menampilkan data 
-        return view('admin.users.index', compact('users'));
+        return view('admin.master.users.index', compact('users'));
     }
 }
