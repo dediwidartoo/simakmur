@@ -12,7 +12,7 @@ class Product extends Model
 
     public function latestImage()
     {
-        return $this->hasOne('App\Models\ImagesProduct','produk_id','id')->latest();
+        return $this->hasOne('App\Models\ImageProduct','produk_id','id')->latest();
     }
 
     public function imageRelation()

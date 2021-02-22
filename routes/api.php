@@ -30,7 +30,7 @@ Route::get('auth/logout/{iduser}','Api\UsersApiController@logout');
 Route::get('produk','Api\ProdukController@produk');
 Route::get('produk/{id}','Api\ProdukController@product');
 
-Route::post('transaksi','Api\TransactionApiController@toko');
+Route::post('transaksi','Api\TransactionApiController@store');
 Route::get('transaksi-user/{iduser}/{status?}','Api\TransactionApiController@byUser');
 Route::get('transaksi/{code}','Api\TransactionApiController@detail');
 Route::post('upload/{code}','Api\TransactionApiController@upload');

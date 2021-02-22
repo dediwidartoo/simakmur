@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Buka Toko - @yield('title')</title>
+	<title>Si Makmur - @yield('title')</title>
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	<!-- Bootstrap 3.3.6 -->
@@ -35,9 +35,9 @@
 		<!-- Logo -->
 		<a href="{{ route('home') }}" class="logo">
 			<!-- mini logo for sidebar mini 50x50 pixels -->
-			<span class="logo-mini"><b>BT</b></span>
+			<span class="logo-mini">S<b>M</b></span>
 			<!-- logo for regular state and mobile devices -->
-			<span class="logo-lg">BUKA <b>TOKO</b></span>
+			<span class="logo-lg">Si <b>Makmur</b></span>
 		</a>
 		<!-- Header Navbar: style can be found in header.less -->
 		<nav class="navbar navbar-static-top">
@@ -63,8 +63,8 @@
 								<img src="{{URL::asset('dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
 
 								<p>
-									{{ Auth::user()->nama }}
-									<small>Bergabung Sejak {{ Auth::user()->created_at->format('Y') }}</small>
+									{{ Auth::user()->username }}
+									<small>Member since {{ Auth::user()->created_at->format('Y') }}</small>
 								</p>
 							</li>
 							<!-- Menu Footer-->
@@ -108,7 +108,7 @@
 					<img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 				</div>
 				<div class="pull-left info">
-					<p>{{ Auth::user()->name }}</p>
+					<p>{{ Auth::user()->nama }}</p>
 					<a href="#"><i class="fa fa-circle text-success"></i> Online</a>
 				</div>
 			</div>
@@ -130,8 +130,8 @@
 						</span>
 					</a>
 					<ul class="treeview-menu">
-						<li style="margin-left:15px;"><a href="{{ route('data.users') }}"><i class="fa fa-users"></i> Users</a></li>
-						<li style="margin-left:15px;"><a href="{{ route('product.index') }}"><i class="fa fa-dropbox"></i> Product</a></li>
+						<li style="margin-left:15px;"><a href="{{ route('data.users') }}"><i class="fa fa-users"></i> Anggota</a></li>
+						<li style="margin-left:15px;"><a href="{{ route('product.index') }}"><i class="fa fa-dropbox"></i> Produk</a></li>
 						{{-- <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li> --}}
 					</ul>
 				</li>
@@ -163,9 +163,9 @@
 
 	<footer class="main-footer">
 		<div class="pull-right hidden-xs">
-			<b><a href="#!">Toko Online V 1.0</a></b>
+			<b><a href="#!">Dibuat dengan <span style="red">&#9829;</span> di Jepara</a></b>
 		</div>
-		<strong> <a href="https://lazday.com" target="_blank">Lazday</a></strong>
+		<strong> <a href="#" target="_blank">Sistem Informasi Pemberdayaan Petani Makmur</a></strong>
 	</footer>
 	<!-- Add the sidebar's background. This div must be placed
 			 immediately after the control sidebar -->

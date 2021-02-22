@@ -38,7 +38,7 @@ class TransactionApiController extends Controller
         ])->response()->setStatusCode(200);
     }
 
-    public function toko(Request $request)
+    public function store(Request $request)
     {
         // return Response::json($request->all());
         

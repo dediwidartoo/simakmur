@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Web;
 
 use DB;
-// use Response;
 use Storage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -39,10 +38,10 @@ class ProductController extends Controller
     /**
     * Store a newly created resource in storage.
     *
-    * @param  \Illuminate\Http\Request  $request
+    * 
     * @return \Illuminate\Http\Response
     */
-    public function toko(Request $request)
+    public function store(Request $request)
     {
         // $request->validate([
         //     'produk'    => 'required|max:60',
@@ -74,7 +73,7 @@ class ProductController extends Controller
                         'gambar'    => $path,
                     ];
 
-                    arrayImages_push($arrayImages, $image);
+                    array_push($arrayImages, $image);
 
                 }
                 ImageProduct::insert($arrayImages);
@@ -99,9 +98,9 @@ class ProductController extends Controller
     public function show($id)
     {
         // $produks = Product::with('imageRelation')->where('id', $id)->first();
-        $produks = Product::with('imageRelation')->first($id);
+        $produks = Product::with(['imageRelation'])->find($id);
         // dd($produks);
-        return view('admin.master.product.detailproduk',compact('produks'));
+        return view('admin.master.product.detail',compact('produks'));
     }
 
     /**
@@ -190,7 +189,7 @@ class ProductController extends Controller
             abort(404);
         }
 
-        $oldImages = ImagesProduct::where('produk_id',$id)->get();
+        $oldImages = ImageProduct::where('produk_id',$id)->get();
 
         if( count( $oldImages ) >= 0 ){
 
@@ -198,7 +197,7 @@ class ProductController extends Controller
                 Storage::delete($old->gambar);
             }
 
-            ImagesProduct::where('produk_id',$id)->delete();
+            ImageProduct::where('produk_id',$id)->delete();
         }
 
         $product->delete();

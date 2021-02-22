@@ -1,22 +1,10 @@
-@extends('index')
+@extends('template.app')
 
-@section('title_header', 'Master User')
+@section('pagetitle','Master User')
 
-@section('desc_header', 'Daftar Anggota Kelompok Tani Makmur')
-
-@section('breadcrumb')
-    <li><a href="#"><i class="fa fa-book"></i> Master</a></li>
-    <li class="active"><a href="#">Anggota</a></li>
-@endsection
-
-@section('customcss')
-    <link rel="stylesheet" href="{{ asset('/plugins/datatables/dataTables.bootstrap.css') }}">
-    <link rel="stylesheet" href="{{ asset('/plugins/datatables/jquery.dataTables.min.css') }}">
-@endsection
 
 @section('content')
 <!-- Default box -->
-
     <div class="box box-primary">
         <div class="box-body">
            <div class="table">
@@ -27,24 +15,33 @@
                             <th>Nama</th>
                             <th>Username</th>
                             <th>Email</th>
+                            <th>Role</th>
                         </tr>
                     </thead>
+
                     <tbody>
-                        @foreach ($users as $user)
+                        @foreach ($users as $index => $user)
                             <tr>
-                                <td>{{ $loop->index + 1 }}</td>
+                                <td>{{ $index + $users->firstItem() }}</td>
                                 <td>{{ $user->nama }}</td>
                                 <td>{{ $user->username }}</td>
                                 <td>{{ $user->email }}</td>
+                                <td>
+                                    @if( $user->is_admin  == false  )
+                                        <span class="label label-primary">User</span>
+                                    @else
+                                        <span class="label label-success">Admin</span>
+                                    @endif
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
+
                 <div class="pull-right">
                     {!! $users->links() !!}
                 </div>
            </div>
         </div>
-    </div>
         <!-- /.box-body -->
 @endsection
