@@ -26,8 +26,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/users', 'Web\UserController@users')->name('data.users');
     Route::resource('product', 'Web\ProductController');
-    // Route::get('/products', 'Web\ProductController@index')->name('product.index');
-    // Route::post('/products', 'Web\ProductController@store')->name('product.store');
-    // Route::get('/produk/{id}', 'Web\ProductController@show')->name('product.show');
-    // Route::post('/products/update', 'Web\ProductController@update')->name('product.update');
+    Route::resource('transaction', 'Web\TransactionController', [
+        'only' => [
+            'index', 'show', 'edit', 'update'
+        ]
+    ]);
 });

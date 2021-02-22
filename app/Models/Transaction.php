@@ -4,6 +4,7 @@ namespace App\Models;
 
 use DB;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 
 class Transaction extends Model
 {
@@ -28,11 +29,11 @@ class Transaction extends Model
 
     public function detailRelation()
     {
-        return $this->hasMany(App\Models\DetailTransaction::class,'transaksi_id','id');
+        return $this->hasMany(\App\Models\DetailTransaction::class,'transaksi_id','id');
     }
 
     public function userRelation()
     {
-        return $this->hasOne(App\Models\User::class,'id','user_id');
+        return $this->hasOne(\App\Models\User::class,'id','user_id');
     }
 }
