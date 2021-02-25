@@ -27,8 +27,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/users', 'Web\UserController@users')->name('data.users');
     Route::resource('product', 'Web\ProductController');
     Route::resource('transaction', 'Web\TransactionController', [
-        'only' => [
-            'index', 'show', 'edit', 'update'
-        ]
+        'only' => ['index', 'show', 'edit', 'update']
     ]);
+    Route::get('update-status/{id}', 'Web\TransactionController@updateProcess')->name('transaction.status');
 });

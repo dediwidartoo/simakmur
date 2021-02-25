@@ -4,7 +4,6 @@ namespace App\Models;
 
 use DB;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\User;
 
 class Transaction extends Model
 {
@@ -12,7 +11,9 @@ class Transaction extends Model
 
     protected $guarded = ['id'];
 
-    protected $dates = ['tgl_transaksi', 'created_at', 'update_at'];
+    protected $dates = [
+        'created_at','update_at','tgl_transaksi'
+    ];
 
     public function scopeGetCode($query)
     {

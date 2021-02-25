@@ -22,17 +22,19 @@ class TransactionsSeeder extends Seeder
                 'total_akhir' => '100000',
                 'tgl_transaksi' => Carbon::now(),
                 'status_transaksi' => 'menunggu',
-                'prof_of_payment' => 'transaksi/c7psDj2cA2doWBUgYwjSvoruc0jNCGeqeLDPimxh.jpeg',
+                // 'proof_of_payment' => 'transaksi/c7psDj2cA2doWBUgYwjSvoruc0jNCGeqeLDPimxh.jpeg',
+                'proof_of_payment'=> null,
                 'created_at' => Carbon::now()
             ),
             array(
                 'user_id' => '1',
-                'kode_transaksi' => 'MR00001',
+                'kode_transaksi' => 'MR00002',
                 'tujuan' => 'surabaya',
                 'total_akhir' => '100000',
                 'tgl_transaksi' => Carbon::now(),
-                'status_transaksi' => 'tertunda',
-                'proof_of_payment'=> 'transaction/jAPBZVEgVQaUvppcsVGVQ2r2ixqLNV6etECCpLlJ.png',
+                'status_transaksi' => 'menunggu',
+                // 'proof_of_payment'=> 'transaksi/jAPBZVEgVQaUvppcsVGVQ2r2ixqLNV6etECCpLlJ.png',
+                'proof_of_payment'=> null,
                 'created_at' => Carbon::now()
             ),
         );

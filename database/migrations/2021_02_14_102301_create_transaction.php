@@ -21,7 +21,7 @@ class CreateTransaction extends Migration
             $table->text('tujuan')->nullable();
             $table->enum('status_transaksi',['menunggu','tertunda','diproses','dikirim'])->default('menunggu');
             $table->datetime('tgl_transaksi')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->text('prof_of_payment')->nullable();
+            $table->text('proof_of_payment')->nullable();
             $table->timestamps();
         });
     }

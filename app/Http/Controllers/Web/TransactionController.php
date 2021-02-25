@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Transaction;
 use App\Models\DetailTransaction;
 use App\Models\User;
+use App\Models\Notification;
 
 class TransactionController extends Controller
 {
@@ -19,7 +20,7 @@ class TransactionController extends Controller
     {
         $transactions = Transaction::with(['userRelation', 'detailRelation'])->paginate(10);
 
-        dd($transactions);
+        return view('admin.transaction.index')->with(['transactions' => $transactions]);
     }
 
     /**
@@ -30,9 +31,9 @@ class TransactionController extends Controller
      */
     public function show($id)
     {
-        $transaction = DetailTransaction::with('productRelation')->where('transaksi_id', $id)->first();
+        $transaction = DetailTransaction::with('productRelation')->where('transaksi_id', $id)->get();
 
-        dd($transaction);
+        return view('admin.transaction.detail')->with(['transaction' => $transaction]);
     }
 
     /**
@@ -56,6 +57,35 @@ class TransactionController extends Controller
     public function update(Request $request, $id)
     {
         //
+    }
+
+    public function updateProcess($id)
+    {
+        $trans = Transaction::where('id',$id)->where('status_transaksi','tertunda')->first();
+
+        if ($trans == null) {
+            return redirect()->back();
+        }
+
+        $deskripsi = "Pembayaran transaksi $trans->kode_transaksi sudah kami terima. Silahkan menunggu untuk pengiriman barang.";
+        
+        Notification::insert([
+            'user_id'   => $trans->user_id,
+            'transaksi_id' => $trans->id,
+            'kode_transaksi' => $trans->kode_transaksi,
+            'deskripsi' => $deskripsi,
+        ]);
+
+        $trans->update([
+            'status_transaksi' => 'diproses'
+        ]);
+
+        return redirect()->back()->with([
+            'status' => [
+                'code'  => 200,
+                'deskripsi' => 'Success'
+            ]
+        ]);
     }
 
 }

@@ -169,7 +169,7 @@ class TransactionApiController extends Controller
 
     public function upload(Request $request, $code)
     {
-        $tra = Transaction::where('kode_transaksi',$code)->first();
+        $tra = Transaction::where('kode_transaksi',$code)->where('status_transaksi','menunggu')->first();
 
         if ($tra == null) {
             return Response::json([
@@ -180,7 +180,7 @@ class TransactionApiController extends Controller
             ], 404);
         }
 
-        if ( ! $request->hasFile('bukti') ) {
+        if ( ! $request->hasFile('foto') ) {
             return Response::json([
                 "status" => [
                     "code" => 403,
@@ -188,10 +188,10 @@ class TransactionApiController extends Controller
                 ]
             ],403);
         }
-        $path = $request->file('bukti')->store('transaksi');
+        $path = $request->file('foto')->store('transaksi');
 
         $tra->update([
-            'prof_of_payment'   => $path,
+            'proof_of_payment'   => $path,
             'status_transaksi'   => 'tertunda',
         ]);
 
