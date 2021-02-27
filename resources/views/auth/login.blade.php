@@ -34,11 +34,11 @@
 <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            <a href="{{ url('/') }}"><b>Si Makmur</b></a>
+            <a href="{{ url('/') }}">Si <b>Makmur</b></a>
         </div>
         <!-- /.login-logo -->
         <div class="login-box-body">
-            <p class="login-box-msg">Masuk untuk memulai</p>
+            <p class="login-box-msg">Sistem Informasi Pemberdayaan Petani</p>
 
             <form method="POST" action="{{ route('login') }}">
                 @csrf

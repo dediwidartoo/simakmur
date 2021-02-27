@@ -126,14 +126,14 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         // $produk = Product::where('id',$request->id)->first();
-        $produk = Product::find($id);
+        $product = Product::find($id);
         // $gambarProdukLama = ImageProduct::where('produk_id',$request->id)->get();
         $gambarProdukLama = ImageProduct::where('produk_id',$id)->get();
 
         DB::beginTransaction();
 
         try {
-            $produk->update([
+            $product->update([
                 'produk'    => $request->produk,
                 'harga'     => $request->harga,
                 'stok'      => $request->stok,
@@ -146,16 +146,16 @@ class ProductController extends Controller
                     foreach ($gambarProdukLama as $lama) {
                         Storage::delete($lama->gambar);
                     }
-                    ImageProduct::where('produk_id',$request->id)->delete();
+                    ImageProduct::where('produk_id',$id)->delete();
                 }
 
                 $arrayImages = [];
 
-                foreach ($request->images as $key => $value) {
+                foreach ($request->images as $value) {
                     $path = $value->store('produk');
 
                     $image = [
-                        'produk_id' => $request->id,
+                        'produk_id' => $product->id,
                         'gambar'    => $path,
                     ];
 

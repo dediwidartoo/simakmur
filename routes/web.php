@@ -30,4 +30,6 @@ Route::group(['middleware' => ['auth']], function () {
         'only' => ['index', 'show', 'edit', 'update']
     ]);
     Route::get('update-status/{id}', 'Web\TransactionController@updateProcess')->name('transaction.status');
+
+    Route::resource('category', 'Web\CategoryController');
 });

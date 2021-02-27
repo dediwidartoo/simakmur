@@ -105,7 +105,7 @@
 			<!-- Sidebar user panel -->
 			<div class="user-panel">
 				<div class="pull-left image">
-					<img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+					<img src="{{ URL::asset('dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
 				</div>
 				<div class="pull-left info">
 					<p>{{ Auth::user()->nama }}</p>
@@ -118,6 +118,27 @@
 				<li class="treeview">
 					<a href="{{ route('home') }}">
 						<i class="fa fa-dashboard"></i> <span>Dashboard</span>
+						<span class="pull-right-container"></span>
+					</a>
+				</li>
+
+				<li class="treeview">
+					<a href="#">
+						<i class="fa fa-book"></i> <span> Artikel</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<li style="margin-left:15px;"><a href="{{ route('data.users') }}"><i class="fa fa-users"></i> Kategori</a></li>
+						<li style="margin-left:15px;"><a href="{{ route('product.index') }}"><i class="fa fa-pencil"></i> Postingan</a></li>
+						{{-- <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li> --}}
+					</ul>
+				</li>
+
+				<li class="treeview">
+					<a href="{{ route('transaction.index') }}">
+						<i class="fa fa-calendar"></i> <span> Agenda Penyuluhan</span>
 						<span class="pull-right-container"></span>
 					</a>
 				</li>

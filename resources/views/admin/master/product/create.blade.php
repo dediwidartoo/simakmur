@@ -1,5 +1,7 @@
 @extends('template.app')
 
+@section('title','Menambahkan Produk Baru')
+
 @section('pagetitle','Create Product')
 
 @push('customcss')

@@ -1,5 +1,7 @@
 @extends('template.app')
 
+@section('title','Anggota Kelompok Tani Makmur')
+
 @section('pagetitle','Master User')
 
 
@@ -28,7 +30,7 @@
                                 <td>{{ $user->email }}</td>
                                 <td>
                                     @if( $user->is_admin  == false  )
-                                        <span class="label label-primary">User</span>
+                                        <span class="label label-primary">Anggota</span>
                                     @else
                                         <span class="label label-success">Admin</span>
                                     @endif

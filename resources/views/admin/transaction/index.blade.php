@@ -1,6 +1,6 @@
 @extends('template.app')
 
-@section('pagetitle','Transaction')
+@section('pagetitle','Transaksi')
 
 
 @section('content')
@@ -48,13 +48,13 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="{{ route('transaction.show', $tr->id) }}" class="btn btn-xs btn-primary">
+                                <a href="{{ route('transaction.show', $tr->id) }}" class="btn btn-xs btn-primary" title="Lihat Transaksi">
                                 <span class="fa fa-external-link"></span></a>
 
                                 @if ($tr->status_transaksi == 'tertunda')
                                     
                                 
-                                <a href="{{ route('transaction.status', $tr->id) }}" class="btn btn-xs btn-success">
+                                <a href="{{ route('transaction.status', $tr->id) }}" class="btn btn-xs btn-success" title="Proses Pesanan">
                                     <span class="fa fa-check"></span>
                                 </a>
                                 @endif
