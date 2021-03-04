@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Category;
 
 class CategoryController extends Controller
 {
@@ -14,7 +15,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $kategori = Category::latest()->paginate(10);
+        // dd($kategori);
+        return view('admin.category.index', compact('kategori'));
     }
 
     /**
@@ -24,7 +27,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.category.create');
     }
 
     /**
@@ -35,7 +38,8 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Category::create($request->all());
+        return redirect()->route('category.index');
     }
 
     /**
@@ -57,7 +61,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $kategori = Category::find($id);
+        return view('admin.category.edit', compact('kategori'));
     }
 
     /**
@@ -69,7 +74,9 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $kategori = Category::find($id);
+        $kategori->update($request->all());
+        return redirect()->route('category.index');
     }
 
     /**
@@ -80,6 +87,11 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $kategori = Category::find($id);
+        if (!$kategori) {
+            return redirect()->back();
+        }
+        $kategori->delete();
+        return redirect()->route('category.index');
     }
 }

@@ -130,7 +130,7 @@
 						</span>
 					</a>
 					<ul class="treeview-menu">
-						<li style="margin-left:15px;"><a href="{{ route('data.users') }}"><i class="fa fa-users"></i> Kategori</a></li>
+						<li style="margin-left:15px;"><a href="{{ route('category.index') }}"><i class="fa fa-folder-open"></i> Kategori</a></li>
 						<li style="margin-left:15px;"><a href="{{ route('product.index') }}"><i class="fa fa-pencil"></i> Postingan</a></li>
 						{{-- <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li> --}}
 					</ul>
@@ -145,7 +145,7 @@
 
 				<li class="treeview">
 					<a href="#">
-						<i class="fa fa-gear"></i> <span>Master</span>
+						<i class="fa fa-gears"></i> <span>Master</span>
 						<span class="pull-right-container">
 							<i class="fa fa-angle-left pull-right"></i>
 						</span>
