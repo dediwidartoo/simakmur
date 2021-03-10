@@ -20,4 +20,9 @@ class Category extends Model
     {
         return 'slug';
     }
+
+    public function Artikel()
+    {
+        return $this->hasMany(\App\Models\Artikel::class, 'kategori_id', 'id');
+    }
 }

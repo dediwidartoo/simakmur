@@ -18,8 +18,11 @@ class CreatePosts extends Migration
             $table->string('judul');
             $table->text('gambar');
             $table->text('body');
-            $table->foreignId('kategori_id')->constrained('categories');
+            // $table->foreignId('kategori_id')->constrained('categories');
+            $table->string('kategori_id');
             $table->timestamps();
+
+            // $table->foreign('kategori_id')->references('id')->on('categories');
         });
     }
 

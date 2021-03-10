@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Si Makmur - @yield('title')</title>
+	<title>Si Makmur - @yield('pagetitle')</title>
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	<!-- Bootstrap 3.3.6 -->
@@ -64,7 +64,7 @@
 
 								<p>
 									{{ Auth::user()->username }}
-									<small>Member since {{ Auth::user()->created_at->format('Y') }}</small>
+									<small>Bergabung sejak {{ Auth::user()->created_at->format('Y') }}</small>
 								</p>
 							</li>
 							<!-- Menu Footer-->
@@ -131,7 +131,7 @@
 					</a>
 					<ul class="treeview-menu">
 						<li style="margin-left:15px;"><a href="{{ route('category.index') }}"><i class="fa fa-folder-open"></i> Kategori</a></li>
-						<li style="margin-left:15px;"><a href="{{ route('product.index') }}"><i class="fa fa-pencil"></i> Postingan</a></li>
+						<li style="margin-left:15px;"><a href="{{ route('artikel.index') }}"><i class="fa fa-pencil"></i> Postingan</a></li>
 						{{-- <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li> --}}
 					</ul>
 				</li>
@@ -214,5 +214,7 @@
 <!-- AdminLTE for demo purposes -->
 <script src="{{URL::asset('/dist/js/demo.js')}}"></script>
 @stack('customscript')
+@stack('datatables')
+@stack('customdatatables')
 </body>
 </html>

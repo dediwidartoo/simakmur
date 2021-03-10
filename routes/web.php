@@ -32,4 +32,5 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('update-status/{id}', 'Web\TransactionController@updateProcess')->name('transaction.status');
 
     Route::resource('category', 'Web\CategoryController');
+    Route::resource('artikel', 'Web\ArtikelController');
 });
