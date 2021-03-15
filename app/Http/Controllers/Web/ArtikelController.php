@@ -86,13 +86,22 @@ class ArtikelController extends Controller
     public function update(Request $request, $id)
     {
         $artikel=Artikel::find($id);
-        Storage::delete($artikel->gambar);
-        $artikel->update([
-            'judul' => Str::slug($request->judul),
-            'body'  => $request->body,
-            'gambar' => $request->file('gambar')->store('artikel'),
-            'kategori_id'   => $request->kategori_id
-        ]);
+        if ($request->file('gambar') == null) {
+            $artikel->update([
+                'judul'         => Str::slug($request->judul),
+                'body'          => $request->body,
+                'kategori_id'   => $request->kategori_id
+            ]);
+        } else {
+            Storage::delete($artikel->gambar);
+            $artikel->update([
+                'judul'         => Str::slug($request->judul),
+                'body'          => $request->body,
+                'gambar'        => $request->file('gambar')->store('artikel'),
+                'kategori_id'   => $request->kategori_id
+            ]);
+        }
+        
 
         return redirect()->route('artikel.index');
     }

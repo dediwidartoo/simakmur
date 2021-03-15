@@ -15,6 +15,7 @@
     <!-- /.box-header -->
     <div class="box-body pad">
       <form action="{{ route('artikel.store') }}" enctype="multipart/form-data" method="POST">
+        @method('POST')
         @csrf
         <div class="form-group">
           <label>Judul Artikel</label>

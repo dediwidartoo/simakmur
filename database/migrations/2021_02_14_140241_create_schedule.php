@@ -15,9 +15,11 @@ class CreateSchedule extends Migration
     {
         Schema::create('schedule', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_agenda');
-            $table->datetime('tanggal');
-            $table->string('waktu');
+            $table->string('nama_agenda',100);
+            $table->datetime('tangggal')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->string('waktu',40);
+            $table->text('lokasi');
+            $table->text('catatan')->nullable();
             $table->boolean('is_done')->default(false);
             $table->timestamps();
         });

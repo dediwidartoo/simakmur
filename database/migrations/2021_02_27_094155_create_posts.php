@@ -16,7 +16,7 @@ class CreatePosts extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->string('judul');
-            $table->text('gambar');
+            $table->text('gambar')->nullable();
             $table->text('body');
             // $table->foreignId('kategori_id')->constrained('categories');
             $table->string('kategori_id');

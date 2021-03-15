@@ -26,6 +26,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        \Carbon\Carbon::setLocale('id');
+    // jika ingin menyesuaikan dengan dengan locale di laravel
+    \Carbon\Carbon::setLocale(config('app.locale'));
+        Schema::defaultStringLength(191);
     }
 }

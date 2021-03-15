@@ -137,7 +137,7 @@
 				</li>
 
 				<li class="treeview">
-					<a href="{{ route('transaction.index') }}">
+					<a href="{{ route('jadwal.index') }}">
 						<i class="fa fa-calendar"></i> <span> Agenda Penyuluhan</span>
 						<span class="pull-right-container"></span>
 					</a>

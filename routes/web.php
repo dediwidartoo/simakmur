@@ -33,4 +33,6 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::resource('category', 'Web\CategoryController');
     Route::resource('artikel', 'Web\ArtikelController');
+    Route::resource('jadwal', 'Web\ScheduleController');
+    Route::get('update-jadwal/{id}', 'Web\ScheduleController@updateProcess')->name('jadwal.status');
 });

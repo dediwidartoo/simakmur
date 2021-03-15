@@ -35,7 +35,7 @@
                     <td>{{ ucfirst($value->judul)}}</td>
                     <td><img src="{{ asset('uploads/'.$value->gambar) }}" width="50px" height="50px" ></td>
                     <td>{{ $value->Kategori->nama_kategori }}</td>
-                    <td>{{ date('d M Y'), strtotime($value->created_at) }}</td>
+                    <td>{{ date('d M Y', strtotime($value->created_at)) }}</td>
                     <td>
                         <a href="{{ route('artikel.edit', $value->id) }}" class="btn btn-info"><span class="fa fa-edit"> Edit</span></a>
     
